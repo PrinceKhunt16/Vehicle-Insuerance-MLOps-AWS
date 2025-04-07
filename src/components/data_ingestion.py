@@ -38,9 +38,7 @@ class DataIngestion:
         try:
             train_set, test_set = train_test_split(dataframe, test_size=self.data_ingestion_config.train_test_split_ratio)
             logging.info("Performed train test split on the dataframe")
-            logging.info(
-                "Exited split_data_as_train_test method of Data_Ingestion class"
-            )
+            logging.info("Exited split_data_as_train_test method of Data_Ingestion class")
             dir_path = os.path.dirname(self.data_ingestion_config.training_file_path)
             os.makedirs(dir_path,exist_ok=True)
             
@@ -63,9 +61,7 @@ class DataIngestion:
             self.split_data_as_train_test(dataframe)
 
             logging.info("Performed train test split on the dataset")
-            logging.info(
-                "Exited initiate_data_ingestion method of Data_Ingestion class"
-            )
+            logging.info("Exited initiate_data_ingestion method of Data_Ingestion class")
 
             data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path, test_file_path=self.data_ingestion_config.testing_file_path)
             
