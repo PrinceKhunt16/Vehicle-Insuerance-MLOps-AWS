@@ -57,18 +57,14 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
 
-      - name: Stop and remove any existing container
+      - name: Deploy application
         run: |
           docker stop vehicle-insurance-app || true
           docker rm vehicle-insurance-app || true
-
-      - name: Pull latest Docker image from ECR
-        run: |
-          docker pull "${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest"
-
-      - name: Run Docker container
-        run: |
+          docker pull ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
           docker run -d \
             --name vehicle-insurance-app \
             --restart unless-stopped \
@@ -77,4 +73,4 @@ jobs:
             -e AWS_DEFAULT_REGION="${{ secrets.AWS_DEFAULT_REGION }}" \
             -e MONGODB_URL="${{ secrets.MONGODB_URL }}" \
             -p 5000:5000 \
-            "${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest"
+            ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
