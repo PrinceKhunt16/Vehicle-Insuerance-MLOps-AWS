@@ -2,7 +2,7 @@ import os
 from datetime import date
 
 DATABASE_NAME = "MLOps"
-COLLECTION_NAME = "vehicles"
+COLLECTION_NAME = "vehiclesinsurance"
 MONGODB_URL_KEY = "MONGODB_URL"
 
 PIPELINE_NAME: str = ""
@@ -23,7 +23,7 @@ AWS_ACCESS_KEY_ID_ENV_KEY = "AWS_ACCESS_KEY_ID"
 AWS_SECRET_ACCESS_KEY_ENV_KEY = "AWS_SECRET_ACCESS_KEY"
 REGION_NAME = "us-east-1"
 
-DATA_INGESTION_COLLECTION_NAME: str = "vehicles"
+DATA_INGESTION_COLLECTION_NAME: str = "vehiclesinsurance"
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
 DATA_INGESTION_INGESTED_DIR: str = "ingested"
