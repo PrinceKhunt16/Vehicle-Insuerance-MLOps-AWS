@@ -55,7 +55,7 @@ class DataForm:
 @app.get("/", tags=["authentication"])
 async def index(request: Request):
     return templates.TemplateResponse(
-            "vehicledata.html",{"request": request, "context": "Rendering"})
+            "vehicledata.html",{"request": request, "context": "Not yet predicted!"})
 
 @app.get("/train")
 async def trainRouteClient():
@@ -84,11 +84,10 @@ async def predictRouteClient(request: Request):
                                     Vehicle_Age_lt_1_Year = form.Vehicle_Age_lt_1_Year,
                                     Vehicle_Age_gt_2_Years = form.Vehicle_Age_gt_2_Years,
                                     Vehicle_Damage_Yes = form.Vehicle_Damage_Yes)
-
         vehicle_df = vehicle_data.get_vehicle_input_data_frame()
         model_predictor = VehicleDataClassifier()
         value = model_predictor.predict(dataframe=vehicle_df)[0]
-        status = "Response-Yes" if value == 1 else "Response-No"
+        status = "Yes, you can get insurance." if value == 1 else "No, you can not get insurance."
 
         return templates.TemplateResponse(
             "vehicledata.html", {
