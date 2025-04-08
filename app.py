@@ -54,8 +54,7 @@ class DataForm:
 
 @app.get("/", tags=["authentication"])
 async def index(request: Request):
-    return templates.TemplateResponse(
-            "vehicledata.html",{"request": request, "context": "Not yet predicted!"})
+    return templates.TemplateResponse("vehicledata.html",{"request": request, "context": "Not yet predicted!"})
 
 @app.get("/train")
 async def trainRouteClient():

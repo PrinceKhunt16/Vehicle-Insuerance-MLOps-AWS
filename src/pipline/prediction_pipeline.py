@@ -43,12 +43,12 @@ class VehicleData:
         except Exception as e:
             raise MyException(e, sys) from e
 
-
     def get_vehicle_data_as_dict(self):
         logging.info("Entered get_usvisa_data_as_dict method as VehicleData class")
 
         try:
             input_data = {
+                "id": 199, # Here i'm hardcoding the id
                 "Gender": [self.Gender],
                 "Age": [self.Age],
                 "Driving_License": [self.Driving_License],

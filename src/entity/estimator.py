@@ -9,7 +9,7 @@ class TargetValueMapping:
     def __init__(self):
         self.yes:int = 0
         self.no:int = 1
-
+    
     def _asdict(self):
         return self.__dict__
     
@@ -29,7 +29,7 @@ class MyModel:
             transformed_feature = self.preprocessing_object.transform(dataframe)
 
             logging.info("Using the trained model to get predictions")
-
+        
             predictions = self.trained_model_object.predict(transformed_feature)
 
             return predictions
