@@ -70,14 +70,22 @@ jobs:
         run: |
           docker pull "${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest"
 
-      - name: Run Docker container
+      - name: Free up port 5000
         run: |
+          # Kill any process using port 5000
+          sudo lsof -ti :5000 | xargs -r sudo kill -9
+          # Clean up any existing containers
+          docker rm -f vehicle-insurance-app || true
+
+      - name: Pull and run container
+        run: |
+          docker pull ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
           docker run -d \
             --name vehicle-insurance-app \
             --restart unless-stopped \
+            -p 5000:5000 \
             -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
             -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
             -e AWS_DEFAULT_REGION="${{ secrets.AWS_DEFAULT_REGION }}" \
             -e MONGODB_URL="${{ secrets.MONGODB_URL }}" \
-            -p 5000:5000 \
-            "${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest"
+            ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
